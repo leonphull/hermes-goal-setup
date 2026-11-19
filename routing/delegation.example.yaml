@@ -1,0 +1,37 @@
+# Template: replace the placeholders or remove the route.
+# This is not a complete Hermes profile. It does not activate automatically.
+delegation:
+  backend: model_map
+  max_concurrent_children: 12
+  max_spawn_depth: 1
+  inherit_mcp_toolsets: false
+  subagent_auto_approve: false
+  backends:
+    model_map:
+      default: claude
+      options:
+        - name: claude
+          description: "Research, writing and general tasks."
+          provider: "<CLAUDE_PROVIDER>"
+          model: "<CLAUDE_MODEL>"
+          reasoning_effort: medium
+        - name: claude-deep
+          description: "Architecture, hard analysis and second review."
+          provider: "<CLAUDE_DEEP_PROVIDER>"
+          model: "<CLAUDE_DEEP_MODEL>"
+          reasoning_effort: high
+        - name: codex
+          description: "Code, repositories, tests and terminal work."
+          provider: openai-codex
+          model: gpt-6.1-sol
+        - name: glm
+          description: "Many items of the same type and simple processing."
+          provider: zai
+          model: glm-5.3
+        - name: local
+          description: "Private content stays local."
+          provider: custom
+          base_url: "<LOCAL_ENDPOINT>"
+          model: "<LOCAL_MODEL>"
+          reasoning_effort: medium
+          fallback_providers: []

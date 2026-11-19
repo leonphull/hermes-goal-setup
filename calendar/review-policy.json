@@ -1,0 +1,15 @@
+{
+  "timezone": "Europe/Berlin",
+  "window_start": "08:00",
+  "window_end": "20:00",
+  "review_minutes": 20,
+  "buffer_minutes": 10,
+  "grid_minutes": 15,
+  "after_finish_minutes": 15,
+  "search_days": 3,
+  "calendar": "primary",
+  "visibility": "private",
+  "availability": "busy",
+  "invitees": [],
+  "send_updates": "none"
+}
