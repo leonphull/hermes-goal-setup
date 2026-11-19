@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review: five unique example rows</title>
+  <link rel="stylesheet" href="review.css">
+  <script src="review.js" defer></script>
+</head>
+<body class="rv">
+<main class="rv-wrap">
+  <span class="rv-status">Demo preview · needs a decision</span>
+  <h1>The example list contains five unique rows</h1>
+  <p class="rv-lead">This page shows a result with evidence and approval. All data is invented.</p>
+
+  <h2><span class="rv-n">1</span>One duplicate was removed</h2>
+  <article class="rv-change">
+    <div>
+      <div class="rv-label">Change</div>
+      <h3>The output file contains only unique entries</h3>
+      <p class="rv-old">Before: six rows.</p>
+      <p class="rv-new">After: five rows.</p>
+    </div>
+    <div>
+      <div class="rv-label">Effect and evidence</div>
+      <p>Example evidence: The comparison counts five unique rows and one duplicate.</p>
+    </div>
+  </article>
+
+  <h2><span class="rv-n">2</span>There was no live change</h2>
+  <ul class="rv-open">
+    <li>Notion and the calendar were not connected for this example.</li>
+  </ul>
+
+  <h2><span class="rv-n">3</span>Your decision</h2>
+  <section class="rv-decision" data-rv-decision="example-list" data-rv-revision="r1" data-lavish-question="example-list">
+    <h3 id="decision">Do you accept the example list?</h3>
+    <div class="rv-options" role="group" aria-labelledby="decision">
+      <label class="rv-option"><input type="radio" name="result-r1" value="accept"><span><b>Accept</b><span>Accept only the result shown.</span></span></label>
+      <label class="rv-option"><input type="radio" name="result-r1" value="change"><span><b>Change</b><span>Add the change request as a note.</span></span></label>
+    </div>
+    <label for="note" class="rv-label">Note (optional)</label>
+    <textarea id="note" name="note" data-rv-note maxlength="2000"></textarea>
+    <button type="button" class="rv-btn" data-rv-send disabled>Send</button>
+    <p class="rv-state" data-rv-state role="status"></p>
+    <textarea class="rv-copy" data-rv-copy aria-label="Decision to copy" readonly hidden></textarea>
+  </section>
+
+  <details>
+    <summary>Approval: criterion · evidence · status</summary>
+    <div class="rv-table"><table>
+      <tr><th scope="col">Criterion</th><th scope="col">Evidence</th><th scope="col">Status</th></tr>
+      <tr><td>Five unique rows</td><td>Example comparison</td><td>Demo data</td></tr>
+    </table></div>
+  </details>
+  <details>
+    <summary>Sources</summary>
+    <p>This example uses no real documents.</p>
+  </details>
+</main>
+</body>
+</html>

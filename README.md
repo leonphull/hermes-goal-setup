@@ -1,6 +1,6 @@
 # Hermes Goal Setup: finish what you start
 
-**BLUF:** This repo is my agent setup for one goal: tasks get **finished**, not only started. It has five portable parts. A prompt compiler turns a raw request into a verifiable task. Routing rules send parts to subagents. Notion tracks the task. A calendar slot holds the review. All replies use BLUF and simplified ASD-STE100.
+**BLUF:** This repo is my agent setup for one goal: tasks get **finished**, not only started. It has six portable parts. A prompt compiler turns a raw request into a verifiable task. Routing rules send parts to subagents. Notion tracks the task. A calendar slot holds the review. A Lavish review page shows the evidence and collects feedback. All replies use BLUF and simplified ASD-STE100.
 
 ## The problem
 
@@ -14,7 +14,8 @@ The agents are not the problem. The missing structure is the problem. A raw prom
 2. **Route the work.** The main agent does the task itself, or gives independent parts to matching subagents. It stays responsible for verification and close-out.
 3. **Track it in Notion.** For work of 30 minutes or more, or work with a review page, the main agent estimates a finish time and finds an existing Notion project.
 4. **Hold a review slot.** The main agent suggests a free calendar slot for the review. Nothing is written or booked before you approve the full preview.
-5. **Report in BLUF + STE100.** The main agent verifies the result itself and reports the result first. For large results, it links exactly one review page.
+5. **Verify and show the result.** The main agent verifies the result itself and adds the evidence to the same task. For large results, it gives the conclusion first in the chat (BLUF + STE100) and links exactly one Lavish page. That page shows the result, the change, the evidence and the decision. Feedback updates the same page.
+6. **Close after approval.** After approval, the main agent marks the same Notion task as done. Then it closes the Lavish session. Follow-up work starts separately.
 
 ```mermaid
 flowchart LR
@@ -30,12 +31,14 @@ flowchart LR
     G --> H
     H -->|yes| I[Write task + book slot<br/>then read back]
     I --> J[Verify result]
-    J --> K[BLUF report + one review page]
-    K --> L{User accepts}
-    L -->|yes| M[Close the same task]
+    J --> K[BLUF report + one Lavish review page]
+    K --> L{User approves on the page}
+    L -->|feedback| N[Update the same page]
+    N --> L
+    L -->|approved| M[Notion task done<br/>then close Lavish session]
 ```
 
-**Who holds which state?** The Goal prompt holds the goal and the verification plan. Notion holds the human task status. The calendar holds only reserved time. The worker supplies evidence. The main agent verifies it. Durable knowledge can go separately into an approved knowledge system. The output style does not change any approval.
+**Who holds which state?** The Goal prompt holds the goal and the verification plan. Notion holds the human task status. The calendar holds only reserved time. Lavish holds the visible review state and the feedback about it. The worker supplies evidence. The main agent verifies it. Durable knowledge can go separately into an approved knowledge system. The output style does not change any approval.
 
 ## Components
 
@@ -46,6 +49,7 @@ flowchart LR
 | Notion tracking | [Flow and page template](notion/TRACKING.md) | Keeps task, project, status and result together. |
 | Calendar review slots | [Flow](calendar/REVIEW-SLOTS.md) · [Settings](calendar/review-policy.json) · [Slot logic](calendar/review_slots.py) | Finds a free time block for the review. |
 | Subagent routing | [Routing rules](routing/SUBAGENTS.md) · [YAML template](routing/delegation.example.yaml) | Selects a matching execution route. |
+| Lavish review | [Review and feedback](lavish/REVIEW.md) · [HTML template](lavish/review-page/template.html) | Shows evidence, collects feedback and records the approval. |
 | Example | [Dry run](examples/EXAMPLE.md) | Shows one full run with invented data. |
 
 ## 5-minute quickstart
@@ -62,10 +66,12 @@ You need Python 3.9+ with time zone data. Clone the repo, then:
 
    All 7 tests must pass. The test is offline. It does not touch a calendar.
 4. **Do the dry run.** Go through the [example](examples/EXAMPLE.md) without write access.
+5. **Open the review page.** Open [template.html](lavish/review-page/template.html) in a browser. It also works offline. Without Lavish, **Send** shows only text to copy.
 
 Optional, after that:
 
 - **Notion and calendar.** Set up Notion and calendar access separately in your target system. Resolve the schema, the project and the target calendar there. Do not write credentials or real references into this folder.
+- **Lavish.** For the feedback channel, install Lavish and `lavish-loop` separately. Then check the flow in [lavish/REVIEW.md](lavish/REVIEW.md).
 - **Routing.** Compare [delegation.example.yaml](routing/delegation.example.yaml) with your installation. Do not activate unknown routes. In a fresh session, test each approved route with a harmless task.
 
 ## Before / after: the example
@@ -81,6 +87,7 @@ Raw input: *"Turn my duplicated example table into a verified list and plan 20 m
 | Notion | not defined | Preview: "Five unique example rows verified" in "Test project". Nothing written. |
 | Review | "plan 20 minutes" | Finished 10:08 → earliest 10:23 → slot `10:30–10:50`, buffer to 11:00. Not booked yet. |
 | Report | — | "Done: The CSV contains five unique rows. The test found one duplicate. The source file did not change." |
+| Review page | — | One [Lavish page](lavish/review-page/template.html) with result, evidence and one decision. |
 
 Full walkthrough: [examples/EXAMPLE.md](examples/EXAMPLE.md).
 
@@ -91,14 +98,15 @@ Full walkthrough: [examples/EXAMPLE.md](examples/EXAMPLE.md).
 - **No write adapters.** The repo does not write to Notion or to a calendar. You set up that access in your own system.
 - **No credentials.** The repo has no credentials, real Notion references, company content, internal endpoints, sessions or live data. The provider, model and endpoint placeholders do not resolve. This is intentional.
 - **The local test checks only the slot logic.** It does not check a connection to a calendar service.
+- **Lavish is not included.** Lavish and `lavish-loop` are installed separately. The repo does not install them. The template opens offline, but the feedback channel works only in a real Lavish session.
 
 ## Origin
 
-The setup comes from the goal prompt compiler, the style template and the active reply rules, the task run, the Notion intake rules and the subagent delegation of my running Hermes setup. Workflows and selected settings are copied. Examples, account references and installation-specific parts are neutralized.
+The setup comes from the goal prompt compiler, the style template and the active reply rules, the task run, the Notion intake rules, the subagent delegation and the Lavish rules with review page v2 of my running Hermes setup. Workflows and selected settings are copied. Examples, account references, design and installation-specific parts are neutralized.
 
 ## Credits
 
-- Inspired in part by Lavish.
+- Review pages and feedback loop use Lavish by Kun Chen ([kunchenguid/lavish-axi](https://github.com/kunchenguid/lavish-axi)).
 - The writing rules are an informal adaptation of selected rules from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/). They are not formal conformance to the standard.
 
 ## Author

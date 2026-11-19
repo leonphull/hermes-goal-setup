@@ -1,6 +1,6 @@
 # Calendar review slots
 
-**One calendar block per task.** Suggest a slot when the work takes an estimated 30 minutes or when it has a review page. Change the calendar only after explicit approval. The task status stays in Notion.
+**One calendar block per task.** Suggest a slot when the work takes an estimated 30 minutes or when it has a review page. Change the calendar only after explicit approval. The task status stays in Notion. The review page and the feedback are in [Lavish](../lavish/REVIEW.md), not in the calendar.
 
 ## Suggest
 

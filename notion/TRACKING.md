@@ -8,7 +8,7 @@
 2. **Map the fields.** Read the actual field types and status options in the target system. Map `Title`, `Status`, `Priority`, `Project`, `Owner`, `Received date` and `Deadline`, if they exist. Do not use a guessed option. The deadline and the review slot are separate. Do not add a second planned date for the same event.
 3. **Show a preview.** Show the target project, all properties, the full page content and, for a review, also the full calendar preview. Heading: **Preview — nothing written yet**. Get explicit approval for exactly this entry. Approved internal work can run in parallel. Private topics do not go into the company Notion.
 4. **Write one time and verify.** Record the stable run reference only in the target installation. Before a new write attempt, search for the entry that already exists. After each approved write, read back the exact entry: project relation, status, date and content.
-5. **Close the same task.** When the work is done, add a short summary, the verification evidence and exactly one final result artifact. Set the entry to the applicable waiting status until acceptance. Mark it as done only after acceptance, then read it back. Record follow-up tasks separately. Do not start them automatically.
+5. **Close the same task.** When the work is done, add a short summary, the verification evidence and exactly one final result artifact. For feedback on the same review page, use [Lavish](../lavish/REVIEW.md). Set the entry to the applicable waiting status until acceptance. Mark it as done only after acceptance, then read it back. Record follow-up tasks separately. Do not start them automatically.
 
 ## Page template
 

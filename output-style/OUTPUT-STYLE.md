@@ -21,7 +21,7 @@ These rules apply to replies to the user: chat, status, questions and final repo
 
 ## Review page
 
-Use a review page for work results with a decision, a comparison, numbers, an image or more than 150 words. Order: result and status → change → effect with evidence → open items → one decision. Each card has one statement and 40 words maximum. If you did not measure an effect, write "not verified". Add feedback on the same page. Chat: one link plus three lines maximum about the result, the decision and the review time.
+Use a review page for work results with a decision, a comparison, numbers, an image or more than 150 words. Order: result and status → change → effect with evidence → open items → one decision. Each card has one statement and 40 words maximum. If you did not measure an effect, write "not verified". Add feedback on the same page in [Lavish](../lavish/REVIEW.md). Chat: one link plus three lines maximum about the result, the decision and the review time.
 
 ## Example
 
